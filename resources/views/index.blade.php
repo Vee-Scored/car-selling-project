@@ -1,8 +1,8 @@
 
-@extends("layouts.app")
-@section('title','Home Page')
- @section("subContent")
-     <!-- Home Slider -->
+
+
+ <x-app-layout title="Home">
+  
   <section class="hero-slider">
     <!-- Carousel wrapper -->
     <div class="hero-slides">
@@ -88,9 +88,7 @@
         <span class="sr-only">Next</span>
       </button>
     </div>
-  </section>
-  <!--/ Home Slider -->
-
+  
   <main>
     <!-- Find a car form -->
     
@@ -115,7 +113,8 @@
     </section>
     <!--/ New Cars -->
   </main>
- @endsection
+ </section>
+ </x-app-layout>
 
     
 

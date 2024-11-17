@@ -1,6 +1,8 @@
-@extends('layouts.clean')
-@include('partials.header')
-@section("content")
- @yield('subContent')
-@endsection
+
+@props(['title' => '', 'className' => ''])
+
+<x-base-layout :$title :$className>
+    <x-header/>
+    {{ $slot }}
+</x-base-layout>
 
