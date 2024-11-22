@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
         $table->unsignedBigInteger('id')->primary();
-        $table->foreignId('user_id')->constrained();
-        $table->foreignId('maker_id')->constrained('users');
-        $table->foreignId('model_id')->constrained('models');
+        $table->foreignId('user_id')->constrained('users');
+        $table->foreignId('maker_id')->constrained('makers');
+        $table->foreignId('model_id')->constrained('car_models');
         $table->foreignId('car_type_id')->constrained('car_types');
         $table->foreignId('fuel_type_id')->constrained('fuel_types');
         $table->foreignId('city_id')->constrained('cities');
