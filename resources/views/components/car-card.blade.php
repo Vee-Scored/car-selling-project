@@ -1,15 +1,15 @@
-
+@props(['car'])
 <div class="car-item card">
     <a href="/view.html">
       <img
-        src="/img/cars/Lexus-RX200t-2016/1.jpeg"
+        src="{{ $car->primaryImage->image_path }}"
         alt=""
         class="car-item-img rounded-t"
       />
     </a>
     <div class="p-medium">
       <div class="flex items-center justify-between">
-        <small class="m-0 text-muted">New Jersey</small>
+        <small class="m-0 text-muted">{{ $car->City->name }}</small>
         <button class="btn-heart">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -27,12 +27,12 @@
           </svg>
         </button>
       </div>
-      <h2 class="car-item-title">2016 - Lexus RX200t</h2>
-      <p class="car-item-price">$25,000</p>
+      <h2 class="car-item-title">{{ $car?->year }} - {{ $car->Maker->name }} {{ $car->CarModels?->name }}</h2>
+      <p class="car-item-price">${{ $car->price }}</p>
       <hr />
       <p class="m-0">
-        <span class="car-item-badge">SUV</span>
-        <span class="car-item-badge">Electric</span>
+        <span class="car-item-badge">{{ $car->CarType->name }}</span>
+        <span class="car-item-badge">{{ $car->FuelType->name }}</span>
       </p>
     </div>
 </div>

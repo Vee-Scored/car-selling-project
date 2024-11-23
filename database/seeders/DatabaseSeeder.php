@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Car;
+use App\Models\CarImage;
 use App\Models\CarModel;
 use App\Models\CarType;
 use App\Models\City;
@@ -9,6 +11,7 @@ use App\Models\FuelType;
 use App\Models\Maker;
 use App\Models\State;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,51 +22,59 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
 
-        // $makers = [
-        //     "Toyota" => ["Corolla", "Camry", "RAV4", "Highlander", "Prius"],
-        //     "Ford" => ["F-150", "Mustang", "Explorer", "Escape", "Edge"],
-        //     "Honda" => ["Civic", "Accord", "CR-V", "Pilot", "Fit"],
-        //     "Chevrolet" => ["Silverado", "Malibu", "Equinox", "Tahoe", "Camaro"],
-        //     "Nissan" => ["Altima", "Rogue", "Sentra", "Pathfinder", "Versa"],
-        //     "Lexus" => ["RX", "ES", "NX", "GX", "LS"]
-        // ];
+        $makers = [
+            "Toyota" => ["Corolla", "Camry", "RAV4", "Highlander", "Prius"],
+            "Ford" => ["F-150", "Mustang", "Explorer", "Escape", "Edge"],
+            "Honda" => ["Civic", "Accord", "CR-V", "Pilot", "Fit"],
+            "Chevrolet" => ["Silverado", "Malibu", "Equinox", "Tahoe", "Camaro"],
+            "Nissan" => ["Altima", "Rogue", "Sentra", "Pathfinder", "Versa"],
+            "Lexus" => ["RX", "ES", "NX", "GX", "LS"]
+        ];
 
-        // foreach ($makers as $maker => $models) {
-        //     Maker::factory()->state(['name' => $maker])->has(CarModel::factory()->count(count($models))->sequence(...array_map(fn ($model) => ['name' => $model],$models)))->create();
-        // }
+        foreach ($makers as $maker => $models) {
+            Maker::factory()->state(['name' => $maker])->has(CarModel::factory()->count(count($models))->sequence(...array_map(fn ($model) => ['name' => $model],$models)))->create();
+        }
 
-        // $states = [
-        //     "California" => ["Los Angeles", "San Francisco", "San Diego", "Sacramento", "San Jose"],
-        //     "Texas" => ["Houston", "Dallas", "Austin", "San Antonio", "Fort Worth"],
-        //     "Florida" => ["Miami", "Orlando", "Tampa", "Jacksonville", "Tallahassee"],
-        //     "New York" => ["New York City", "Buffalo", "Rochester", "Albany", "Syracuse"],
-        //     "Illinois" => ["Chicago", "Aurora", "Naperville", "Springfield", "Peoria"],
-        //     "Pennsylvania" => ["Philadelphia", "Pittsburgh", "Harrisburg", "Allentown", "Erie"],
-        //     "Ohio" => ["Columbus", "Cleveland", "Cincinnati", "Toledo", "Akron"],
-        //     "Georgia" => ["Atlanta", "Savannah", "Augusta", "Columbus", "Macon"],
-        //     "North Carolina" => ["Charlotte", "Raleigh", "Durham", "Greensboro", "Winston-Salem"],
-        //     "Michigan" => ["Detroit", "Grand Rapids", "Ann Arbor", "Lansing", "Flint"]
-        // ];
+        $states = [
+            "California" => ["Los Angeles", "San Francisco", "San Diego", "Sacramento", "San Jose"],
+            "Texas" => ["Houston", "Dallas", "Austin", "San Antonio", "Fort Worth"],
+            "Florida" => ["Miami", "Orlando", "Tampa", "Jacksonville", "Tallahassee"],
+            "New York" => ["New York City", "Buffalo", "Rochester", "Albany", "Syracuse"],
+            "Illinois" => ["Chicago", "Aurora", "Naperville", "Springfield", "Peoria"],
+            "Pennsylvania" => ["Philadelphia", "Pittsburgh", "Harrisburg", "Allentown", "Erie"],
+            "Ohio" => ["Columbus", "Cleveland", "Cincinnati", "Toledo", "Akron"],
+            "Georgia" => ["Atlanta", "Savannah", "Augusta", "Columbus", "Macon"],
+            "North Carolina" => ["Charlotte", "Raleigh", "Durham", "Greensboro", "Winston-Salem"],
+            "Michigan" => ["Detroit", "Grand Rapids", "Ann Arbor", "Lansing", "Flint"]
+        ];
 
-        // foreach($states as $state => $cities) {
-        //     State::factory()
-        //     ->state(['name' => $state])
-        //     ->has(
-        //         City::factory()
-        //         ->count(count($cities))
-        //         ->sequence(...array_map(fn ($city) => ['name' => $city],$cities))
-        //     )->create();
-        // }
+        foreach($states as $state => $cities) {
+            State::factory()
+            ->state(['name' => $state])
+            ->has(
+                City::factory()
+                ->count(count($cities))
+                ->sequence(...array_map(fn ($city) => ['name' => $city],$cities))
+            )->create();
+        }
 
-        // CarType::factory()->count(6)->sequence(['name'=>'SUV'],['name' => 'Hatchback'], ['name' => 'Sedan'],['name' => 'Hilux'], ['name' => 'PickUp Truck'],['name' => 'Mini Van'])->create();
+        CarType::factory()->count(6)->sequence(['name'=>'SUV'],['name' => 'Hatchback'], ['name' => 'Sedan'],['name' => 'Hilux'], ['name' => 'PickUp Truck'],['name' => 'Mini Van'])->create();
 
         FuelType::factory()->count(5)->sequence(['name'=>'Gasoline'],['name' => 'Diesel'],['name' => 'Petrol'], ['name' => "Electric'"],['name' => 'Hybrid'])->create();
+
+        User::factory()->count(3)->create();
+
+        User::factory()->count(2)->has(
+            Car::factory()->count(50)->has(
+                CarImage::factory()->sequence(fn (Sequence $attributes) => ['position' => $attributes->index % 5 + 1])
+            )->hasCarFeature(), 'favourite_cars'
+            )->create();
     }
 }

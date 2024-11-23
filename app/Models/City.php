@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class City extends Model
 {
@@ -21,5 +22,9 @@ class City extends Model
 
     function State () :BelongsTo {
         return $this->belongsTo(State::class);
+    }
+
+    function Cars() : HasMany {
+            return $this->hasMany(Car::class);
     }
 }

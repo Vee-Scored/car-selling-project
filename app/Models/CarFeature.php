@@ -30,4 +30,6 @@ class CarFeature extends Model
     function Car () :BelongsTo {
         return $this->belongsTo(Car::class);
     }
+
+    public $timestamps = false;
 }

@@ -46,15 +46,15 @@ class Car extends Model
         return $this->BelongsTo(FuelType::class);
      }
 
-     function CarModel ():BelongsTo {
-        return $this->BelongsTo(CarModel::class);
+     function CarModels ():BelongsTo {
+        return $this->BelongsTo(CarModel::class,'model_id','id');
      }
 
      function User ():BelongsTo {
         return $this->belongsTo(User::class);
      }
 
-     function FavouredUser () : BelongsToMany {
+     function FavouredUsers () : BelongsToMany {
         return $this->belongsToMany(User::class,'favourite_cars');
      }
 
@@ -64,5 +64,12 @@ class Car extends Model
 
      function CarImage () : HasMany {
         return $this->hasMany(CarImage::class);
+     }
+     function primaryImage () : hasOne {
+      return $this->hasOne(CarImage::class);
+     }
+
+     function City () : BelongsTo {
+      return $this->belongsTo(City::class);
      }
 }

@@ -23,7 +23,8 @@ class CarModel extends Model
         return $this->belongsToMany(Maker::class);
     }
 
-    function Car ():HasMany {
+    function Cars ():HasMany {
         return $this->hasMany(Car::class);
     }
+
 }

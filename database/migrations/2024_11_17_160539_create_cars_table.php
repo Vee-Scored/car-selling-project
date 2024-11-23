@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cars', function (Blueprint $table) {
-        $table->unsignedBigInteger('id')->primary();
+        $table->id();
         $table->foreignId('user_id')->constrained('users');
         $table->foreignId('maker_id')->constrained('makers');
         $table->foreignId('model_id')->constrained('car_models');
@@ -28,6 +28,7 @@ return new class extends Migration
         $table->longText('description');
         $table->timestamps();
         $table->softDeletes();
+        $table->timestamp('published_at')->nullable();
         });
     }
 
